@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"syscall/js"
+	"time"
 
 	"github.com/hexops/vecty"
 	"github.com/hexops/vecty/example/todomvc/actions"
@@ -23,6 +24,15 @@ func main() {
 		p.Items = store.Items
 		vecty.Rerender(p)
 	})
+	go func() {
+		ticker := time.NewTicker(2 * time.Second)
+		for {
+			select {
+			case <-ticker.C:
+				vecty.Rerender(p)
+			}
+		}
+	}()
 	vecty.RenderBody(p)
 }
 
