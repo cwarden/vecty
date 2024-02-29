@@ -499,7 +499,7 @@ func (h *HTML) reconcileChildren(prev *HTML) (pendingMounts []Mounter) {
 			insertBeforeKeyedNode = h.lastRenderedChild.nextSibling()
 			// If the next node is our old node, mark key as stable, to avoid
 			// unnecessary insertion.
-			if prevChildRender != nil && prevChildRender.node.Equal(insertBeforeKeyedNode) {
+			if prevChildRender != nil && (insertBeforeKeyedNode == nil || prevChildRender.node.Equal(insertBeforeKeyedNode)) {
 				stableKey = true
 				insertBeforeKeyedNode = nil
 			}
